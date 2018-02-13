@@ -9,7 +9,11 @@
  * @since 0.71
  */
 
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_DISPLAY', true );
+
 define( 'DB_CHARSET', 'utf8' );
+define( 'DB_COLLATE', 'utf8_general_ci' );
 
 /**
  * @since 0.71
@@ -1827,7 +1831,7 @@ class wpdb {
          */
         $value['charset'] = false;
       } else {
-        $value['charset'] = null;
+        $value['charset'] = $this->charset;
       }
 
       $data[ $field ] = $value;
@@ -2396,10 +2400,9 @@ class wpdb {
       return $query;
     }
 
-    $charset = $this->charset;
     $data = array(
       'value'   => $query,
-      'charset' => $charset,
+      'charset' => $this->charset,
       'ascii'   => false,
       'length'  => false,
     );
@@ -2426,7 +2429,7 @@ class wpdb {
     $data = array(
       $column => array(
         'value'   => $value,
-        'charset' => null,
+        'charset' => $this->charset,
         'length'  => $this->get_col_length( $table, $column ),
       ),
     );
